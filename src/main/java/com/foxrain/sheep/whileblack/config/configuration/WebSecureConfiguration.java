@@ -99,6 +99,8 @@ public class WebSecureConfiguration extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/",
                      "/calendar",
+                     "/app/**",
+                     "/gs-guide-websocket/**",
                      "/error",
                      "/favicon.ico",
                      "/**/*.png",
