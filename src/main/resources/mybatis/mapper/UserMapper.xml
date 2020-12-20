@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.foxrain.sheep.whileblack.config.custom.security.oauth2.user.repository.UserMapper">
+
+
+  <insert id="insertUser">
+
+    insert into `user`
+    (userKakaoID, userName, userImage, userEmail, provider)
+    values
+    (#{userKakaoID},
+    #{userName},
+    #{userImage},
+    #{userEmail},
+    #{provider}
+    );
+
+  </insert>
+  <select id="isUserExist" resultType="com.foxrain.sheep.whileblack.config.custom.security.oauth2.user.entity.User">
+
+    select
+        userIdx as userIdx,
+        userKakaoID,
+        userName,
+        userImage,
+        userEmail,
+        provider
+    from `user` as u
+    where u.userKakaoID = #{userKakaoID}
+
+  </select>
+  <select id="getUserbyId" resultType="com.foxrain.sheep.whileblack.config.custom.security.oauth2.user.entity.User">
+
+    SELECT
+        userIdx as userIdx,
+        userKakaoID,
+        userName,
+        userImage,
+        userEmail,
+        provider
+    FROM `user` as u
+    where u.userKakaoID = #{value}
+
+  </select>
+  <select id="findByEmail" resultType="com.foxrain.sheep.whileblack.config.custom.security.oauth2.user.entity.User">
+    SELECT
+        userIdx as userIdx,
+        userKakaoID,
+        userName,
+        userImage,
+        userEmail,
+        provider
+    FROM `user` as u
+    where u.userEmail = #{value}
+
+  </select>
+  <update id="updateUser">
+    UPDATE `user`
+        SET
+        userName = #{userName}
+        , userEmail = #{userEmail}
+
+        WHERE userKakaoID = #{userKakaoID}
+
+  </update>
+
+</mapper>

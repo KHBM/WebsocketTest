@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!--
+        ** 파일 이름이 logback.spring.xml에서 xlogback.xml로 바뀐 이유 **
+
+        <springProperty name="LOG_PATH" source="com.ex.log-dir"/>
+        이렇게 application.yml 에서 com.ex.log-dir 값을 읽어 오는데 이유가 어떻게 됬든 LOG_PATH 변수값이 조금 늦게 설정이 되는 문제가 발생했다.
+        이 시간차 때문에 서버 시작 후 로그의 첫줄이 LOG_PATH를 찾지 못하여 프로젝트 루트에서 LOG_PATH_IS_UNDEFINED 라는 폴더를 만들어서
+        write 되고 다음 줄 부터는 LOG_PATH 변수에서 지정한 폴더로 write 된다.
+        그래서 방법을 찾아보다가 설정파일 이름을 커스텀으로 바꾸고 수동으로 application.yml 속에서 아래처럼 등록하면 문제가 해결이 된다.
+
+        logging:
+          config: classpath:xlogback.xml
+
+          참고: https://stackoverflow.com/a/36997111
+          (위 링크에 해결 방법이 꽤 많은데 다른 것들은 현재환경에서 안먹힘)
+     -->
+
+    <springProperty name="LOG_PATH" source="com.ex.log-dir"/>
+    <springProperty name="LOG_FILE_NAME" source="com.ex.log-file-name"/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- 콘솔 로깅 설정-->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <springProfile name="local">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${CONSOLE_LOG_PATTERN:-%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint}
+                    %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint}
+                    %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}
+                </pattern>
+            </encoder>
+        </appender>
+    </springProfile>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- 파일 로깅 설정-->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <springProfile name="!jenkins">
+
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p --- [%thread] %logger : %m %n</pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+                <maxHistory>30</maxHistory>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+            </rollingPolicy>
+        </appender>
+
+        <appender name="HIKARI-CP-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_PATH}/dbcp/hikari-cp.log</file>
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p --- [%thread] %logger : %m %n</pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH}/dbcp/hikari-cp.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <maxHistory>10</maxHistory>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+            </rollingPolicy>
+        </appender>
+    </springProfile>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- 환경별 설정-->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- local 환경 설정-->
+    <springProfile name="local">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="FILE"/>
+        </root>
+        <logger name="com.wmp.ep" level="DEBUG"/>
+    </springProfile>
+
+    <!-- dev tst pre 환경 설정-->
+    <springProfile name="dev | tst | pre">
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+        </root>
+        <logger name="com.wmp.ep" level="DEBUG"/>
+
+        <logger name="com.zaxxer.hikari" level="TRACE" additivity="false">
+            <appender-ref ref="HIKARI-CP-FILE"/>
+        </logger>
+    </springProfile>
+
+    <!-- prod 환경 설정-->
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+        </root>
+        <logger name="com.wmp.ep" level="INFO"/>
+
+        <logger name="com.zaxxer.hikari" level="TRACE" additivity="false">
+            <appender-ref ref="HIKARI-CP-FILE"/>
+        </logger>
+    </springProfile>
+
+</configuration>

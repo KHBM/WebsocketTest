@@ -1,0 +1,62 @@
+spring:
+  datasource:
+#    schema: classpath*:/schema.sql
+    initialization-mode: always
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:h2:~/whileblack
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 7a84c10becbaf1853f7a4ac40dc32359
+            client-secret: e307f732baf3ae09fa5e35de7f041577
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+
+            #            redirect-uri: 'http://121.130.167.189:8080/login/oauth2/code/{registrationId}'
+            #            redirect-uri: 'http://localhost:8080/login/oauth2/code/{registrationId}'
+
+            redirect-uri: 'http://121.130.167.189:8092/oauth2/callback/{registrationId}'
+            #            redirect-uri: 'http://localhost:8092/oauth2/callback/{registrationId}'
+
+            #            redirect-uri: 'http://1.232.31.65:8092/oauth2/callback/{registrationId}'
+            scope:
+              - account_email
+              - profile
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+            #jwk-set-uri: https://your-subdomain.oktapreview.com/oauth2/v1/keys
+
+
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpirationMsec: 864000000
+  oauth2:
+    # After successfully authenticating with the OAuth2 Provider,
+    # we'll be generating an auth token for the user and sending the token to the
+    # redirectUri mentioned by the client in the /oauth2/authorize request.
+    # We're not using cookies because they won't work well in mobile clients.
+    authorizedRedirectUris:
+#      - http://localhost:8080/calendar
+      - http://121.130.167.189:9092/calendar
+
+#components:
+#  securitySchemes:
+#    bearerAuth:            # arbitrary name for the security scheme
+#      type: http
+#      scheme: bearer
+#      bearerFormat: JWT

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tcp.iamlazy.todo.repository.ToDoMapper">
+    <select id="getDayToDo" resultType="com.tcp.iamlazy.todo.entity.ToDo">
+        SELECT todoTitle, todoContent, todoDate, finish
+        FROM todo
+        WHERE toDoDate = now()
+    </select>
+
+    <select id="getToDoFromDate" resultType="com.tcp.iamlazy.todo.entity.ToDo">
+
+        SELECT
+            userId,
+            todoIdx,
+            todoTitle,
+            todoContent,
+            todoDate,
+            repeatableYn,
+            repeatUnit,
+            startDate,
+            endDate,
+            weekDay,
+            monthDay,
+            finish
+        FROM
+            todo t
+        WHERE
+            t.userId = #{userName}
+        and (
+            ((repeatUnit != 0)
+                and #{localDateTime} between t.startDate and t.endDate
+                and (
+                ((repeatUnit = 1) and 1 = 1)
+                or ((repeatUnit = 7) and DAY_OF_WEEK(#{localDateTime}) = weekDay+1)
+                or ((repeatUnit = 30) and DAY_OF_MONTH(#{localDateTime}) = monthDay)
+                )
+            )
+            or ((repeatUnit = 0) and #{localDateTime} = todoDate)
+        )
+
+    </select>
+    <insert id="insertTodo" useGeneratedKeys="true" keyProperty="userId,todoIdx" parameterType="com.tcp.iamlazy.todo.entity.ToDo">
+
+        INSERT INTO todo
+        (
+            userId,
+            todoTitle,
+            todoContent,
+            todoDate,
+            repeatUnit,
+            startDate,
+            endDate,
+            weekDay,
+            monthDay,
+            finish
+         )
+        VALUES
+        (
+            #{userId},
+            #{todoTitle},
+            #{todoContent},
+            #{todoDate},
+            #{repeatUnit},
+            #{startDate},
+            #{endDate},
+            #{weekDay},
+            #{monthDay},
+            #{finish}
+        );
+
+    </insert>
+    <select id="getTodoById" resultType="com.tcp.iamlazy.todo.entity.ToDo">
+        SELECT
+            userId,
+            todoIdx,
+            todoTitle,
+            todoContent,
+            todoDate,
+            repeatableYn,
+            repeatUnit,
+            startDate,
+            endDate,
+            weekDay,
+            monthDay,
+            finish
+        FROM
+            todo t
+        WHERE
+            t.userId = #{userId}
+            and t.todoIdx = #{todoIdx}
+    </select>
+    <update id="updateTodoBy">
+
+        UPDATE todo
+        SET
+        todoTitle = #{todoTitle}
+        , todoContent = #{todoContent}
+        , todoDate = #{todoDate}
+        , repeatableYN = #{repeatableYN}
+        , repeatUnit = #{repeatUnit}
+        , startDate = #{startDate}
+        , endDate = #{endDate}
+        , weekDay = #{weekDay}
+        , monthDay = #{monthDay}
+        , finish = #{finish}
+        WHERE userId = #{userId}
+        and todoIdx = #{todoIdx}
+
+
+    </update>
+    <delete id="deleteToDoById">
+
+        DELETE FROM todo
+        WHERE todoIdx = #{todoIdx}
+        and userId = #{userId}
+
+    </delete>
+
+
+</mapper>

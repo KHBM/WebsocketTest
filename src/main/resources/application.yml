@@ -1,0 +1,160 @@
+spring:
+  profiles:
+    active: local
+
+mybatis:
+  type-aliases-package: com.foxrain.sheep.whileblack
+  config-location: classpath:mybatis/mapper/mybatis-config.xml
+
+
+server:
+  tomcat:
+    accesslog:
+      pattern: '%a %l %u %t %r %s %b %{User-Agent}i %{x-forwarded-for}I'
+      enabled: true
+  port: 8092
+  name: While Black Server
+
+com:
+  ex:
+    log-dir: /var/log/whileblack
+    log-file-name: whileblack-server
+
+logging:
+  config: classpath:xlogback.xml
+#  level:
+#    jdbc:
+#      sqlonly: ERROR
+#    org:
+#      springframework: DEBUG
+#      apache:
+#        catalina: DEBUG
+#        tomcat: DEBUG
+
+error:
+  message: 'no error'
+
+---
+spring:
+  profiles:
+    include:
+      - private
+  config:
+    activate:
+      on-profile: local
+  mvc:
+    log-request-details: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+      properties:
+        hibernate:
+          format_sql: true
+    show-sql: true
+
+
+
+com:
+  ex:
+    log-dir: log
+
+logging:
+  level:
+    com:
+      wmp:
+        ep: INFO
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR #EC2 instacne가 아닌곳에서(Local) 수행시 Warning 로그 띄우는것을 제거
+        internal:
+          InstanceMetadataServiceResourceFetcher: ERROR
+
+file:
+  path: /Users/we/backup
+  subpath : /tmp2
+
+#cloud:
+#  aws:
+#    credentials:
+#      profile-name: dev
+#      profile-path: /Users/we/.aws/credentials
+#      use-default-aws-credentials-chain: false
+#      instance-profile: false
+#    region:
+#      auto: false
+#      static: ap-northeast-2
+#    stack:
+#      auto: false
+#    s3:
+#      bucket: bcccket
+#    sqs:
+#      queue-name: QueueDev
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+cloud:
+  aws:
+    #    credentials:
+    #      profile-name: default
+    #      profile-path: /home/ubuntu/.aws/credentials
+    region:
+      auto: false
+      static: ap-northeast-2
+    stack:
+      auto: false
+    s3:
+      bucket: bucketdev
+    sqs:
+      queue-name: QueueDev
+
+vep:
+  image:
+    server:
+      mode:
+        error: false
+logging:
+  level:
+    com:
+      wmp:
+        ep: INFO
+
+file:
+  path: /home/ubuntu/backup
+  subpath : /tmp2
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+file:
+  path: /home/ubuntu/backup
+  subpath : /tmp2
+
+efsf:
+  image:
+    server:
+      mode:
+        error: false
+logging:
+  level:
+    com:
+      wmp:
+        ep: INFO
+
+cloud:
+  aws:
+    region:
+      auto: false
+      static: ap-northeast-2
+    stack:
+      auto: false
+    s3:
+      bucket: bucket.proud
+    sqs:
+      queue-name: QueueLive
