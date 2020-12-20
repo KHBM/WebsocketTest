@@ -1,4 +1,4 @@
-package com.foxrain.sheep.whileblack.websocket;
+package com.foxrain.sheep.whileblack.websocket.message.from;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
