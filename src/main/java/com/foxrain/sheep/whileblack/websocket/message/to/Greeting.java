@@ -1,6 +1,7 @@
-package com.foxrain.sheep.whileblack.websocket;
+package com.foxrain.sheep.whileblack.websocket.message.to;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -12,6 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class Greeting {
     private String content;
     public Greeting(String content)
