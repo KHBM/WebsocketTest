@@ -1,7 +1,8 @@
 spring:
   profiles:
     active: local
-
+  http:
+    log-request-details: true
 mybatis:
   type-aliases-package: com.foxrain.sheep.whileblack
   config-location: classpath:mybatis/mapper/mybatis-config.xml

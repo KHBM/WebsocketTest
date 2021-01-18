@@ -41,7 +41,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     this.tokenProvider = tokenProvider;
     this.appProperties = appProperties;
     this.httpCookieOAuth2AuthorizationRequestRepository = httpCookieOAuth2AuthorizationRequestRepository;
-    setDefaultTargetUrl("/calendar");
+    setDefaultTargetUrl("/p1");
   }
 
   @Override

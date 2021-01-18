@@ -19,6 +19,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -85,21 +86,23 @@ public class WebSecureConfiguration extends WebSecurityConfigurerAdapter {
     httpSecurity
 //        .cors() /* 아걸 사용하려면 WebMvcConfiguration 을 적용하면 된다. */
 //          .and()
-        .sessionManagement()
-          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-          .and()
+//        .sessionManagement()
+//          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//          .and()
         .csrf()
           .disable()
         .formLogin()
           .disable()
         .httpBasic()
           .disable()
-        .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+        //.exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))) // 401 페이지 리턴하도록 함
 //          .authenticationEntryPoint(new RestAuthenticationEntryPoint()) /* 이건 위의 핸들러로 대신할 수도 있다. . */
+        .exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))
+         .and() // 이렇게 하면 401 때 루트로 가려나..
         .authorizeRequests()
         .antMatchers("/",
-                     "/calendar",
-                     "/gs-foxrain/**",
+//                     "/calendar",
+//                     "/gs-foxrain/**",
                      "/error",
                      "/favicon.ico",
                      "/**/*.png",

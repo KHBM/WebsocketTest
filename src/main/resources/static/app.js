@@ -21,6 +21,9 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/ftopic/greetings', function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
+        }, function(error) {
+          alert('error');
+          console.log(error);
         });
     });
 }

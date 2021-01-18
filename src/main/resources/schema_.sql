@@ -194,3 +194,56 @@ CREATE INDEX user_Index_1 ON `user`
 -- -- ALTER TABLE emoticon_info
 -- --     ADD CONSTRAINT FK_emoticon_info_id_review_emoticon FOREIGN KEY (id)
 -- --         REFERENCES review (emoticon) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+CREATE TABLE board_level
+(
+  seq int(11) PRIMARY KEY,
+  maps varchar('1024'),
+  width int(11),
+  height int(11)
+);
+
+INSERT INTO board_level(seq, maps, width, height)
+VALUES
+ (0, '1,1,0,1,1,1,1,0,1,1', 5, 2);
+-- new String[][]{{"1", "1", "0", "1", "1"},
+--                {"1", "1", "0", "1", "1"}
+-- DROP TABLE board_level;
+
+-- SELECT * FROM board_level;
+
+INSERT INTO board_level(seq, maps, width, height)
+VALUES
+ (1, '1,1,0,1,1,1,1,0,1,1,0,0,0,0,0,1,1,0,1,1,1,1,0,1,1', 5, 5);
+
+ INSERT INTO board_level(seq, maps, width, height)
+VALUES
+ (-1, '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 5, 5);
+ INSERT INTO board_level(seq, maps, width, height) VALUES (3, '0,0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,0', 5, 5);
+INSERT INTO board_level(seq, maps, width, height) VALUES (4, '1,1,0,1,1,1,1,0,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0', 5, 5);
+INSERT INTO board_level(seq, maps, width, height) VALUES (2, '0,0,0,0,0,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,0,0,0,0,0', 5, 5);
+INSERT INTO board_level(seq, maps, width, height) VALUES (5, '1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 5, 5);
+
+INSERT INTO board_level(seq, maps, width, height) VALUES (6, '1,0,0,0,1,1,0,0,0,1,0,1,1,1,0,1,0,1,0,1,1,0,1,0,1', 5, 5);
+INSERT INTO board_level(seq, maps, width, height) VALUES (7, '0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,0', 5, 5);
+
+INSERT INTO board_level(seq, maps, width, height)
+VALUES
+ (-2, '0,0,0,0,0,0,0,' ||
+      '0,0,0,0,0,0,0,' ||
+      '0,0,0,0,0,0,0,' ||
+      '0,0,0,0,0,0,0,' ||
+      '0,0,0,0,0,0,0,' ||
+      '0,0,0,0,0,0,0,' ||
+      '0,0,0,0,0,0,0', 7, 7);
+
+      INSERT INTO board_level(seq, maps, width, height) VALUES (-3, '0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,0,0,1,1,1,1,1,0,0,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0', 7, 7);
+
+      INSERT INTO board_level(seq, maps, width, height) VALUES (8, '1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1', 7, 7);
+
+      INSERT INTO board_level(seq, maps, width, height) VALUES (9, '1,1,0,0,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,1,0,1,1,0,0,1,0,1,0,1,0,1,0,0,0,0,0,1,1,0,1,1,1,0,1', 7, 7);
+
+      INSERT INTO board_level(seq, maps, width, height) VALUES (10, '1,1,0,0,0,1,1,0,0,1,0,1,0,0,1,0,0,0,0,0,1,1,0,1,0,1,0,1,1,0,0,0,0,0,1,0,0,1,0,1,0,0,1,1,0,0,0,1,1', 7, 7);
+
+      INSERT INTO board_level(seq, maps, width, height) VALUES (11, '1,1,0,1,0,1,1,0,0,1,1,1,0,0,1,1,1,0,1,1,1,0,0,1,1,1,0,0,1,1,1,0,1,1,1,0,0,1,1,1,0,0,1,1,0,1,0,1,1', 7, 7);
+

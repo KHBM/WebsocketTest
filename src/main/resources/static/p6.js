@@ -1,0 +1,38 @@
+function check()
+{
+    console.log("hi");
+    var answer = $('#ans').val();
+    console.log("hi", answer);
+    $.ajax('/p6check',
+    {
+      data: JSON.stringify({value:answer}),
+      complete:function(e){
+            if (e.responseText == "null")
+            {
+              alert('모든 문제를 풀지 않았어요, 처음부터 다시 풀어보세요');
+              return;
+            }
+            if (e.responseText != "false")
+            {
+              console.log(e.responseText);
+              location.href = "/"+e.responseText;
+            }
+            else
+            {
+              alert('틀렸습니다.');
+            }
+
+             },
+     method:'POST',
+     dataType:'json',
+     contentType:'application/json'});
+}
+
+$(function () {
+    $("form").on('submit', function (e) {
+        e.preventDefault();
+    });
+    $( "#ok" ).click(function() { console.log("hi2"); check(); });
+    $( "#ok2" ).click(function() { location.href = "/p1" });
+});
+

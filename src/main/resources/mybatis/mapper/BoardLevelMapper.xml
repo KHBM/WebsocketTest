@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.foxrain.sheep.whileblack.logic.mapper.BoardLevelMapper">
+
+    <select id="selectLevel" resultType="com.foxrain.sheep.whileblack.logic.entity.BoardLevel">
+        SELECT
+            seq,
+            width,
+            height,
+            maps
+        FROM
+            board_level
+        WHERE seq = #{value}
+    </select>
+</mapper>

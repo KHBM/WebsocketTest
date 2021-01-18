@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
  * Created with intellij IDEA. by 2020 03 2020/03/31 11:45 오후 31 User we at 23 45 To change this
  * template use File | Settings | File Templates.
  */
+@ToString
 public class UserPrincipal implements OAuth2User, UserDetails {
   private Long id;
   private String email;

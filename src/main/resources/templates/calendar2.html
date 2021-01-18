@@ -17,7 +17,7 @@
   <div class="row">
 
     <p>
-    3x3 뒤집기 퍼즐. 모두 연한색으로 채우세요.
+    3x3 뒤집기 퍼즐. 모두 진한색으로 채우세요.
     </p>
 
   </div>
@@ -25,13 +25,11 @@
     <div class="col-md-6">
       <form class="form-inline">
         <div class="form-group">
-          <label for="connect">선택:</label>
+          <label for="connect">WebSocket connection:</label>
           <button id="connect" class="btn btn-default" type="submit">시작</button>
           <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">종료
           </button>
           <button id="gohome" class="btn btn-default" type="submit">Home
-          </button>
-          <button id="refresh" class="btn btn-default" type="submit">현재 단계 초기화
           </button>
         </div>
       </form>
@@ -53,18 +51,13 @@
       <table id="conversation" class="table table-striped">
         <thead>
         <tr>
-          <th>미션</th>
+          <th>Greetings</th>
         </tr>
         </thead>
         <tbody id="ngreetings">
         </tbody>
       </table>
       <div id="greetings"></div>
-    </div>
-    <hr>
-    <div class="col-md-12">
-      현황.
-      <div id="greetings_other"></div>
     </div>
   </div>
 </div>
