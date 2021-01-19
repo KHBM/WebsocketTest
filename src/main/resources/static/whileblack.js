@@ -69,7 +69,28 @@ function showGreeting(json) {
     var message = json.mapInfo;
     if (message.length == 0)
     {
-      $('#greetings').append('<p>올 클리어 '+json.code+'</p>');
+      $('#greetings').append('<p>올 클리어 '+json.code1 +'</p>');
+      setTimeout(
+          $.ajax('/p6check',
+              {
+                  data: JSON.stringify({value: json.code}),
+                  complete: function (e) {
+                      if (e.responseText == "null") {
+                          alert('풀지 않은 문제가 있어요. 처음으로 이동합니다.');
+
+                          console.log(e.responseText);
+                          setTimeout(function(e){
+                              location.href = "p1";
+                          }, 2000);
+                      } else {
+                          alert('성공하셨습니다.')
+                          location.href = "/"+e.responseText;
+                      }
+                  },
+                  method: 'POST',
+                  dataType: 'json',
+                  contentType: 'application/json'
+              }), 1000)
     }
     for (var y = 0; y < message.length; y++)
     {
@@ -142,7 +163,7 @@ Drawer.init = {
       if (nick) {
         if (message.length == 0)
         {
-          toDiv.append('<p>이 사람은 올 클리어</p>');
+          //toDiv.append('<p>이 사람은 올 클리어</p>');
         }
         toDiv.append("<p>"+nick+"</p>")
       }

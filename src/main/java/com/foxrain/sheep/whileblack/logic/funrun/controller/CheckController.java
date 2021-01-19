@@ -33,7 +33,7 @@ public class CheckController
     {
         log.info("Answer : {}, {}", answer.getValue(), userPrincipal.getName());
 
-        if (answer.getValue().equalsIgnoreCase("102103"))
+        if (answer.getValue().equalsIgnoreCase("1991-06-10"))
         {
             m1.put(userPrincipal.getName(), true);
             printMapStatus(userPrincipal.getName());
@@ -52,7 +52,7 @@ public class CheckController
     {
         log.info("Answer : {}, {}", answer.getValue(), userPrincipal.getName());
 
-        if (answer.getValue().equalsIgnoreCase("02-3146-5921"))
+        if (answer.getValue().equalsIgnoreCase("2019-05-30"))
         {
             m2.put(userPrincipal.getName(), true);
             printMapStatus(userPrincipal.getName());
@@ -70,7 +70,7 @@ public class CheckController
     {
         log.info("Answer : {}, {}", answer.getValue(), userPrincipal.getName());
 
-        if (answer.getValue().equals("Slippery"))
+        if (answer.getValue().equals("피카츄"))
         {
             m3.put(userPrincipal.getName(), true);
             printMapStatus(userPrincipal.getName());
@@ -88,7 +88,7 @@ public class CheckController
     {
         log.info("Answer : {}, {}", answer.getValue(), userPrincipal.getName());
 
-        if (answer.getValue().equals("Seongsudaegyo(Br)"))
+        if (answer.getValue().equals("43"))
         {
             m4.put(userPrincipal.getName(), true);
             printMapStatus(userPrincipal.getName());
@@ -106,11 +106,11 @@ public class CheckController
     {
         log.info("Answer : {}, {}", answer.getValue(), userPrincipal.getName());
 
-        if (answer.getValue().equalsIgnoreCase("260"))
+        if (answer.getValue().equalsIgnoreCase("가수의실력이신데요"))
         {
             m5.put(userPrincipal.getName(), true);
             printMapStatus(userPrincipal.getName());
-            return "p6";
+            return "calendar";
         }
         else
         {
@@ -126,7 +126,7 @@ public class CheckController
         log.info("Answer : {}, {}", answer.getValue(), userPrincipal.getName());
         log.info("User final : {}", userPrincipal);
 
-        if (answer.getValue().equalsIgnoreCase("280"))
+        if (answer.getValue().equalsIgnoreCase("5f6z5i4e4h43468a-94383d-gv422c"))
         {
             m6.put(userPrincipal.getName(), true);
             printMapStatus(userPrincipal.getName());

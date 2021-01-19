@@ -76,7 +76,7 @@ public class UserManager
 
     private int getUserLevel(String user)
     {
-        return userLevel.getOrDefault(user, 0);
+        return userLevel.getOrDefault(user, 9);
     }
 
     private void replaceUserMap(String user, Board board)
