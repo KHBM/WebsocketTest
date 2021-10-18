@@ -48,6 +48,11 @@ public class UserNotRestController
     {
         return "p6";
     }
+    @GetMapping("p7")
+    public String p7()
+    {
+        return "p7";
+    }
     @GetMapping("ai3934jejf-fgasfdhdf-34934rh2-asdfa49w")
     public String a()
     {

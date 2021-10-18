@@ -1,6 +1,6 @@
 spring:
   datasource:
-#    schema: classpath*:/schema.sql
+#    schema: classpath*:/schema_.sql
     initialization-mode: always
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:h2:~/whileblack
@@ -25,7 +25,7 @@ spring:
             #            redirect-uri: 'http://121.130.167.189:8080/login/oauth2/code/{registrationId}'
             #            redirect-uri: 'http://localhost:8080/login/oauth2/code/{registrationId}'
 
-            redirect-uri: 'http://121.130.167.189:8092/oauth2/callback/{registrationId}'
+            redirect-uri: 'http://121.130.167.189:8093/oauth2/callback/{registrationId}'
             #            redirect-uri: 'http://localhost:8092/oauth2/callback/{registrationId}'
 
             #            redirect-uri: 'http://1.232.31.65:8092/oauth2/callback/{registrationId}'

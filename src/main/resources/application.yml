@@ -13,7 +13,7 @@ server:
     accesslog:
       pattern: '%a %l %u %t %r %s %b %{User-Agent}i %{x-forwarded-for}I'
       enabled: true
-  port: 8092
+  port: 8093
   name: While Black Server
 
 com:
@@ -23,15 +23,15 @@ com:
 
 logging:
   config: classpath:xlogback.xml
-#  level:
+  level:
 #    jdbc:
 #      sqlonly: ERROR
-#    org:
+    org:
 #      springframework: DEBUG
-#      apache:
+      apache:
 #        catalina: DEBUG
 #        tomcat: DEBUG
-
+        kafka: INFO
 error:
   message: 'no error'
 

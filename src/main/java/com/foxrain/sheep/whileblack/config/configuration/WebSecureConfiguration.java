@@ -115,11 +115,17 @@ public class WebSecureConfiguration extends WebSecurityConfigurerAdapter {
           .permitAll()
         .antMatchers("/auth/**", "/oauth2/**")
           .permitAll()
-        .antMatchers("/", "/login/**", "/*.html", "/user/login", "/swagger-resources/**",
+        .antMatchers("/h2-console/**",
+                     "/h2-console/")
+          .denyAll()
+        .antMatchers("/",
+            "/login/**",
+//            "/*.html",
+            "/user/login", "/swagger-resources/**",
                      "/swagger-ui.html",
                      "/v2/api-docs",
-                     "/h2-console/**",
-                     "/h2-console/",
+//                     "/h2-console/**",
+//                     "/h2-console/",
                      "/webjars/**")
           .permitAll()
           .antMatchers("/console/**")

@@ -9,7 +9,11 @@ import com.foxrain.sheep.whileblack.config.configuration.security.oauth2.excepti
 import com.foxrain.sheep.whileblack.util.cookie.CookieUtils;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +45,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     this.tokenProvider = tokenProvider;
     this.appProperties = appProperties;
     this.httpCookieOAuth2AuthorizationRequestRepository = httpCookieOAuth2AuthorizationRequestRepository;
-    setDefaultTargetUrl("/p1");
+    setDefaultTargetUrl("/calendar");
   }
 
   @Override
@@ -93,5 +97,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
           }
           return false;
         });
+  }
+
+  public static void main(String[] args)
+  {
+    Consumer<Integer[]> sort = Arrays::sort;
+    sort.accept(new Integer[]{4,2,1});
   }
 }

@@ -9,9 +9,13 @@ import com.foxrain.sheep.whileblack.websocket.message.to.Broadcast;
 import com.foxrain.sheep.whileblack.websocket.message.to.MapInfo;
 import com.google.common.collect.Sets;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.PostConstruct;
+
+import io.vavr.Function1;
+import io.vavr.Function2;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -120,7 +124,7 @@ public class GreetingController {
 //        final int[][] array = getUserMap(principalName).toArray();
         final Board currentBoard = userManager.getCurrentBoardOfUser(principalName);
         final int[][] array = currentBoard.toArray();
-        log.info("array : {}", array);
+        log.info("array : {}", Arrays.stream(array).toArray());
 //        messagingTemplate.convertAndSendToUser(principal.getName(), "/queue/greetings", new MapInfo(array));
         broadcastMapInfo();
         return new MapInfo(array, false, "");
